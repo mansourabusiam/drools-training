@@ -19,6 +19,7 @@ public class Passport {
   private LocalDate expiresOn;
   private int unusedVisaPages;
   private int age;
+  private boolean allDocumentsSubmitted;
 
   private Validation validation = Validation.UNKNOWN;
 
@@ -33,6 +34,14 @@ public class Passport {
 
   public void setExpiresOn(LocalDate expiresOn) {
     this.expiresOn = expiresOn;
+  }
+
+  public boolean isAllDocumentsSubmitted() {
+    return allDocumentsSubmitted;
+  }
+
+  public void setAllDocumentsSubmitted(boolean allDocumentsSubmitted) {
+    this.allDocumentsSubmitted = allDocumentsSubmitted;
   }
 
   public boolean isExpired() {
@@ -90,6 +99,7 @@ public class Passport {
     private LocalDate expiresOn;
     private int unusedVisaPages;
     private int age;
+     private boolean allDocumentsSubmitted;
 
     private PassportBuilder() {
     }
@@ -98,6 +108,11 @@ public class Passport {
       this.passportNumber = passportNumber;
       return this;
     }
+
+     public PassportBuilder withAllDocumentsSubmitted(boolean documents) {
+       this.allDocumentsSubmitted = documents;
+       return this;
+     }
 
     public PassportBuilder withName(String name) {
       this.name = name;
@@ -126,6 +141,7 @@ public class Passport {
       passport.expiresOn = expiresOn;
       passport.unusedVisaPages = unusedVisaPages;
       passport.age = age;
+      passport.allDocumentsSubmitted = allDocumentsSubmitted;
       return passport;
     }
   }
@@ -140,13 +156,14 @@ public class Passport {
         Objects.equals(passportNumber, passport.passportNumber) &&
         Objects.equals(name, passport.name) &&
         Objects.equals(expiresOn, passport.expiresOn) &&
+        allDocumentsSubmitted == passport.allDocumentsSubmitted &&
         validation == passport.validation &&
         Objects.equals(cause, passport.cause);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(passportNumber, name, expiresOn, unusedVisaPages, age, validation, cause);
+    return Objects.hash(passportNumber, allDocumentsSubmitted, name, expiresOn, unusedVisaPages, age, validation, cause);
   }
 
 }

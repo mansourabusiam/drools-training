@@ -117,9 +117,19 @@ public class VisaIssue {
 
 
 
-    if (step >= 4) {
+    if (step == 4) {
       Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("issue-visa").setFocus();
+      agenda.getAgendaGroup("validate-application").setFocus();
+      agenda.getAgendaGroup("validate-passport").setFocus();
+    }
+
+
+
+    if (step == 5) {
+      Agenda agenda = ksession.getAgenda();
+      agenda.getAgendaGroup("issue-visa").setFocus();
+      agenda.getAgendaGroup("validate-documents").setFocus();
       agenda.getAgendaGroup("validate-application").setFocus();
       agenda.getAgendaGroup("validate-passport").setFocus();
     }
