@@ -1,0 +1,20 @@
+package io.github.aasaru.drools.section06
+
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.VisaApplication;
+
+rule "missing documents"
+    dialect "mvel"
+    agenda-group "validate-documents"
+    salience 10
+    when
+        $passport: Passport( !isAllDocumentsSubmitted() )
+        $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
+                                               validation == Validation.PASSED )
+    then
+        System.out.println( "Applicant with " + $passport + " hasn't submitted all documents" );
+        modify($visaApplication) {
+              setValidation( Validation.ONHOLD )
+            }
+end
