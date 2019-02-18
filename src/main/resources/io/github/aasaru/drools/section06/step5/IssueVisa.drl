@@ -5,6 +5,16 @@ import io.github.aasaru.drools.domain.VisaApplication;
 import java.time.LocalDate
 import io.github.aasaru.drools.domain.Visa;
 
+rule "issuing visa is on hold for applicants with missing documents"
+	dialect "mvel"
+	agenda-group "issue-visa"
+	when
+	  $visaApplication: VisaApplication( validation == Validation.ONHOLD )
+
+	then
+	  System.out.println($visaApplication + " is on hold due to missing documents");
+end
+
 rule "Issue visa for valid applications"
 	dialect "mvel"
 	agenda-group "issue-visa"
